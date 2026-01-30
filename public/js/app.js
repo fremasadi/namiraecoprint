@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeNavigation();
 });
 
+
+
 // Initialize Navigation
 function initializeNavigation() {
     const menuToggle = document.getElementById('menuToggle');
@@ -162,7 +164,47 @@ function populateNews() {
 }
 
 // Modal functions for collections
-// Modal functions for collections - WITH IMAGE SUPPORT
+function forceMobileLayoutCheck() {
+    const modalBody = document.querySelector('.modal-body');
+    const modalContent = document.querySelector('.modal-content');
+
+    if (!modalBody) return;
+
+    const viewportWidth = window.innerWidth;
+
+    // PAKSA layout vertikal untuk ukuran <= 768px
+    if (viewportWidth <= 768) {
+        modalBody.style.flexDirection = 'column';
+        modalBody.style.padding = '20px';
+        modalBody.style.gap = '20px';
+
+        if (modalContent) {
+            modalContent.style.width = '100%';
+            modalContent.style.height = '100vh';
+            modalContent.style.borderRadius = '0';
+        }
+
+        console.log('✅ Mobile layout AKTIF (width: ' + viewportWidth + 'px)');
+    }
+    // Layout horizontal untuk desktop
+    else if (viewportWidth >= 1025) {
+        modalBody.style.flexDirection = 'row';
+        modalBody.style.padding = '40px';
+        modalBody.style.gap = '40px';
+
+        console.log('✅ Desktop layout AKTIF (width: ' + viewportWidth + 'px)');
+    }
+    // Tablet tetap vertikal
+    else {
+        modalBody.style.flexDirection = 'column';
+        modalBody.style.padding = '30px';
+        modalBody.style.gap = '30px';
+
+        console.log('✅ Tablet layout AKTIF (width: ' + viewportWidth + 'px)');
+    }
+}
+
+// JALANKAN saat modal dibuka
 function openModal(index) {
     const collections = window.collections || [];
     const modal = document.getElementById('modal');
@@ -183,9 +225,11 @@ function openModal(index) {
     // Show modal
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+
+    // ✅ PAKSA CEK LAYOUT SETELAH MODAL MUNCUL
+    setTimeout(forceMobileLayoutCheck, 100);
 }
 
-// Modal function for news - WITH IMAGE SUPPORT
 function openNewsModal(index) {
     const newsData = window.newsData || [];
     const modal = document.getElementById('modal');
@@ -206,21 +250,45 @@ function openNewsModal(index) {
     // Show modal
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+
+    // ✅ PAKSA CEK LAYOUT SETELAH MODAL MUNCUL
+    setTimeout(forceMobileLayoutCheck, 100);
 }
 
-// Close modal
+// JALANKAN saat window di-resize (device toggle)
+let resizeTimer;
+window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+        const modal = document.getElementById('modal');
+        if (modal && modal.classList.contains('active')) {
+            forceMobileLayoutCheck();
+        }
+    }, 250);
+});
+
+// JALANKAN saat orientasi berubah (mobile device)
+window.addEventListener('orientationchange', function () {
+    setTimeout(forceMobileLayoutCheck, 300);
+});
+
+// Fungsi close modal tetap sama
 function closeModal() {
     const modal = document.getElementById('modal');
     modal.classList.remove('active');
     document.body.style.overflow = 'auto';
 }
 
-// Close modal
-function closeModal() {
-    const modal = document.getElementById('modal');
-    modal.classList.remove('active');
-    document.body.style.overflow = 'auto';
-}
+// Initialize saat DOM ready
+document.addEventListener('DOMContentLoaded', function () {
+    populateGallery();
+    populateNews();
+    initializeEventListeners();
+    initializeNavigation();
+
+    // Test detection saat load
+    console.log('📱 Viewport width saat ini:', window.innerWidth + 'px');
+});
 
 // Initialize event listeners
 function initializeEventListeners() {
