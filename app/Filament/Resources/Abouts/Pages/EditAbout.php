@@ -1,11 +1,13 @@
-    <?php
+<?php
 
-    use App\Filament\Resources\Abouts\AboutResource;
-    use App\Models\About;
-    use Filament\Resources\Pages\EditRecord;
-    use Illuminate\Support\Facades\Artisan;
+namespace App\Filament\Resources\Abouts\Pages;
 
-    class EditAbout extends EditRecord
+use App\Filament\Resources\Abouts\AboutResource;
+use App\Models\About;
+use Filament\Resources\Pages\EditRecord;
+use Illuminate\Support\Facades\Artisan;
+
+class EditAbout extends EditRecord
     {
         protected static string $resource = AboutResource::class;
 
