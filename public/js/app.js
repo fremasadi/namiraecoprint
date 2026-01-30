@@ -2,7 +2,7 @@
 // Lihat di index.blade.php bagian <script>
 
 // Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     populateGallery();
     populateNews();
     initializeEventListeners();
@@ -18,7 +18,7 @@ function initializeNavigation() {
 
     // Mobile menu toggle
     if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
+        menuToggle.addEventListener('click', function () {
             menuToggle.classList.toggle('active');
             navMenu.classList.toggle('active');
             navOverlay.classList.toggle('active');
@@ -28,7 +28,7 @@ function initializeNavigation() {
 
     // Close menu when overlay is clicked
     if (navOverlay) {
-        navOverlay.addEventListener('click', function() {
+        navOverlay.addEventListener('click', function () {
             menuToggle.classList.remove('active');
             navMenu.classList.remove('active');
             navOverlay.classList.remove('active');
@@ -38,7 +38,7 @@ function initializeNavigation() {
 
     // Close menu when nav link is clicked (mobile)
     navLinks.forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function () {
             if (window.innerWidth <= 768) {
                 menuToggle.classList.remove('active');
                 navMenu.classList.remove('active');
@@ -49,7 +49,7 @@ function initializeNavigation() {
     });
 
     // Active link on scroll
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         let current = '';
         const sections = document.querySelectorAll('section, footer');
 
@@ -71,7 +71,7 @@ function initializeNavigation() {
 
     // Smooth scroll with offset for fixed header
     navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href').substring(1);
             const targetSection = document.getElementById(targetId);
@@ -162,31 +162,57 @@ function populateNews() {
 }
 
 // Modal functions for collections
+// Modal functions for collections - WITH IMAGE SUPPORT
 function openModal(index) {
     const collections = window.collections || [];
     const modal = document.getElementById('modal');
     const modalTitle = document.getElementById('modalTitle');
     const modalDescription = document.getElementById('modalDescription');
+    const modalImage = document.getElementById('modalImage');
 
+    // Set content
     modalTitle.textContent = collections[index].title;
     modalDescription.innerHTML = collections[index].description;
 
+    // Set image
+    if (modalImage && collections[index].image) {
+        modalImage.src = collections[index].image;
+        modalImage.alt = collections[index].title;
+    }
+
+    // Show modal
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
-// Modal function for news
+// Modal function for news - WITH IMAGE SUPPORT
 function openNewsModal(index) {
     const newsData = window.newsData || [];
     const modal = document.getElementById('modal');
     const modalTitle = document.getElementById('modalTitle');
     const modalDescription = document.getElementById('modalDescription');
+    const modalImage = document.getElementById('modalImage');
 
+    // Set content
     modalTitle.textContent = newsData[index].title;
     modalDescription.innerHTML = newsData[index].content;
 
+    // Set image
+    if (modalImage && newsData[index].image) {
+        modalImage.src = newsData[index].image;
+        modalImage.alt = newsData[index].title;
+    }
+
+    // Show modal
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+}
+
+// Close modal
+function closeModal() {
+    const modal = document.getElementById('modal');
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto';
 }
 
 // Close modal
@@ -201,7 +227,7 @@ function initializeEventListeners() {
     // Close modal on outside click
     const modal = document.getElementById('modal');
     if (modal) {
-        modal.addEventListener('click', function(e) {
+        modal.addEventListener('click', function (e) {
             if (e.target === this) {
                 closeModal();
             }
@@ -209,7 +235,7 @@ function initializeEventListeners() {
     }
 
     // Close modal on Escape key
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
             closeModal();
         }
@@ -218,7 +244,7 @@ function initializeEventListeners() {
     // Smooth scroll indicator
     const scrollIndicator = document.querySelector('.scroll-indicator');
     if (scrollIndicator) {
-        scrollIndicator.addEventListener('click', function() {
+        scrollIndicator.addEventListener('click', function () {
             const gallerySection = document.querySelector('.gallery-section');
             if (gallerySection) {
                 gallerySection.scrollIntoView({
@@ -229,7 +255,7 @@ function initializeEventListeners() {
     }
 
     // Parallax effect for hero
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         const scrolled = window.pageYOffset;
         const hero = document.querySelector('.hero-background img');
         if (hero) {
