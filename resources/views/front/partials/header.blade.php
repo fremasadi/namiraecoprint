@@ -5,15 +5,16 @@
                 @if ($header?->logo_path)
                     <img src="{{ asset('storage/' . $header->logo_path) }}" alt="{{ $header->site_name ?? 'Logo' }}">
                 @else
-                    <img src="{{ asset('assets/logonobackground.png') }}" alt="{{ $header->site_name ?? 'Namira ' }}">
+                    <img src="{{ asset('assets/logonobackground.png') }}"
+                        alt="{{ $header->site_name ?? 'Namira ' }}">
                 @endif
             </div>
             <div>
-                @if ($header?->site_name)
+                @if($header?->site_name)
                     <span class="logo-text">{{ $header->site_name }}</span>
                 @endif
                 @if ($header?->tagline)
-                    <div class="tagline">{{ $header->tagline }}</div>
+                <div class="tagline">{{ $header->tagline}}</div>
                 @endif
             </div>
         </div>
