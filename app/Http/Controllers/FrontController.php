@@ -37,8 +37,8 @@ class FrontController extends Controller
                     'image' => $item->image_path
                         ? asset('storage/' . $item->image_path)
                         : asset('assets/content.JPG'),
-                    'date' => $item->published_at
-                        ? $item->published_at->format('d M Y')  // ✅ Add null check
+                    'updated_at' => $item->updated_at
+                        ? $item->updated_at->format('d M Y')  // ✅ Add null check
                         : now()->format('d M Y'),  // ✅ Fallback ke hari ini
                     'author' => $item->author ?? 'Admin',  // ✅ Add null check
                 ];

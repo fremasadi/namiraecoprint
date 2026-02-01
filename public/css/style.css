@@ -520,10 +520,10 @@ nav {
 
 .item-image {
     width: 100%;
-    height: 380px;
+    height: 450px;
     background: linear-gradient(135deg, #704214 0%, #8b6f47 50%, #a0826d 100%);
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     position: relative;
     overflow: hidden;
@@ -624,7 +624,7 @@ nav {
 
 .news-image {
     width: 100%;
-    height: 280px;
+    height: 350px;
     position: relative;
     overflow: hidden;
     background: linear-gradient(135deg, #704214 0%, #8b6f47 50%, #a0826d 100%);
@@ -740,6 +740,12 @@ nav {
     font-size: 0.85rem;
 }
 
+.news-date-footer {
+    color: #b0b0b0;
+    font-size: 0.85rem;
+    font-weight: 400;
+}
+
 .news-read-more {
     color: var(--green);
     font-weight: 600;
@@ -797,12 +803,14 @@ nav {
     position: relative;
     width: 95%;
     max-width: 1400px;
-    max-height: 90vh;
+    height: 90vh;
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
     animation: slideUp 0.4s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Close Button */
@@ -836,9 +844,11 @@ nav {
 /* Modal Body - Flex Layout */
 .modal-body {
     display: flex;
-    height: 100%;
+    flex: 1;
+    min-height: 0;
     padding: 40px;
     gap: 40px;
+    overflow: hidden;
 }
 
 /* Image Container - Right Side on Desktop */
@@ -871,6 +881,7 @@ nav {
     flex-direction: column;
     overflow-y: auto;
     padding-right: 20px;
+    min-height: 0;
 }
 
 /* Custom Scrollbar */

@@ -132,15 +132,6 @@ function populateNews() {
 
         newsItem.innerHTML = `
             <div class="news-image">
-                <div class="news-date">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                        <line x1="3" y1="10" x2="21" y2="10"></line>
-                    </svg>
-                    ${news.date}
-                </div>
                 ${news.image ? `<img src="${news.image}" alt="${news.title}">` : `<div class="news-placeholder">📰</div>`}
             </div>
             <div class="news-content">
@@ -148,10 +139,7 @@ function populateNews() {
                 <h3 class="news-title">${news.title}</h3>
                 <p class="news-description">${news.short_desc}</p>
                 <div class="news-footer">
-                    <div class="news-author">
-                        <div class="news-author-avatar">${news.author.charAt(0)}</div>
-                        <span>${news.author}</span>
-                    </div>
+                    <span class="news-date-footer">${news.updated_at}</span>
                     <a href="#" class="news-read-more" onclick="event.preventDefault(); openNewsModal(${index})">Baca</a>
                 </div>
             </div>
